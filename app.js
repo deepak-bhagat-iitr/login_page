@@ -8,12 +8,13 @@ app.use(express.json())
 app.get("/", (req, res) => {
     app.use(express.static(path.resolve(__dirname, "Frontend", "build")));
     res.sendFile(path.resolve(__dirname, "Frontend", "build", "index.html"));
-    });
+});
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST'],
     credentials: true
 }));
+
 
 app.post("/", async (req, res) => {
     const { email, password } = req.body
@@ -21,7 +22,7 @@ app.post("/", async (req, res) => {
 
     const check = await collection.findOne({
         email: email,
-        password: password 
+        password: password
     })
 
     if (check) {
@@ -48,17 +49,17 @@ app.post("/signup", async (req, res) => {
         email: email
     })
 
-    if (check){
+    if (check) {
         res.json("exist")
     }
     else {
         const helper = await collection.findOne({
             email: email,
         })
-        if(helper){
+        if (helper) {
             alert("email already in use")
         }
-        else{
+        else {
             await collection.insertMany([data])
             res.json("notexist")
         }
@@ -66,7 +67,7 @@ app.post("/signup", async (req, res) => {
 
 })
 
-app.listen(3000, () => {
+app.listen(5000, () => {
     console.log("port connected");
 })
 
