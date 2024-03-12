@@ -14,7 +14,7 @@ function Login() {
 
         try{
 
-            axios.post(`${window.location.origin}`,{
+            axios.post(`${window.location.origin}/`,{
                 email:email,
                 password:password
 
